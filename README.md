@@ -1,10 +1,10 @@
 # servant-exceptions [![Build Status](https://travis-ci.org/ch1bo/servant-exceptions.svg?branch=master)](https://travis-ci.org/ch1bo/servant-exceptions)
-Servant servers typically run their handlers in some form of `IO`. Either directly in the builtin `Handler` monad or a custom monad transformer on top it. When APIs fail, one would typically use the `MonadError ServantError` instance via `throwError` to create an error response of type `ServantErr`.
+Servant servers typically run their handlers in some form of `IO`. Either directly in the builtin `Handler` monad or a custom monad transformer on top it. When APIs fail, one would typically use the `MonadError ServerErroror` instance via `throwError` to create an error response of type `ServerError`.
 
 This approach has two problems:
 
-* `Handler` (basically being `ExceptT ServantErr IO`) is considered an anti-pattern by some, as it suggests to novice users that only `ServantErr` would occur, but in `IO` any exception can be raised to abort execution
-* `ServantErr` values need to be created at the call site of `throwError`, where the requested content type and/or headers are not available
+* `Handler` (basically being `ExceptT ServerError IO`) is considered an anti-pattern by some, as it suggests to novice users that only `ServerError` would occur, but in `IO` any exception can be raised to abort execution
+* `ServerError` values need to be created at the call site of `throwError`, where the requested content type and/or headers are not available
 
 `servant-exception` tries to help with both by making it easy to catch specific error types with an instance of `Exception` and provide automatic encoding into the requested content-type.
 
@@ -24,7 +24,7 @@ data UsersError = UserNotFound
 
 instance Exception UsersError
 
-instance ToServantErr UsersError where
+instance ToServerError UsersError where
   status UserNotFound = status404
   status UserAlreadyExists = status409
   status InternalError = status500

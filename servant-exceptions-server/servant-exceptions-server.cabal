@@ -1,5 +1,5 @@
 name:                  servant-exceptions-server
-version:               0.1.1
+version:               0.1.2
 description:           Extensible exceptions for servant APIs
 homepage:              https://github.com/ch1bo/servant-exceptions#readme
 license:               BSD3
@@ -21,9 +21,9 @@ library
                      , http-media
                      , http-types
                      , mtl
-                     , servant >= 0.11
+                     , servant >= 0.16.2
                      , servant-exceptions
-                     , servant-server >= 0.11
+                     , servant-server >= 0.16.2
                      , text
                      , wai
   default-language:    Haskell2010

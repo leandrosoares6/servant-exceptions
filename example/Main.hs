@@ -16,7 +16,7 @@ import GHC.Generics
 import Network.HTTP.Types.Status
 import Network.Wai.Handler.Warp
 import Servant
-import Servant.Exception         (Exception (..), Throws, ToServantErr (..), mapException)
+import Servant.Exception         (Exception (..), Throws, ToServerError (..), mapException)
 import Servant.Exception.Server  (mapException)
 
 import qualified Data.Text as Text
@@ -41,8 +41,8 @@ instance ToJSON User
 instance MimeRender PlainText User where
   mimeRender ct = mimeRender ct . show
 
--- | Erros occurring at the @UsersAPI@, which can be converted to @ServantErr@
--- via @ToServantErr@.
+-- | Erros occurring at the @UsersAPI@, which can be converted to @ServerError@
+-- via @ToServerError@.
 data UsersError = UserNotFound
                 | UserAlreadyExists
                 | BadUser
@@ -51,8 +51,8 @@ data UsersError = UserNotFound
 
 instance Exception UsersError
 
--- | Provide a conversion to servant's error type @ServantErr@.
-instance ToServantErr UsersError where
+-- | Provide a conversion to servant's error type @ServerError@.
+instance ToServerError UsersError where
   status UserNotFound = status404
   status UserAlreadyExists = status409
   status BadUser = status400

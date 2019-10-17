@@ -3,3 +3,7 @@ packages:
 - 'servant-exceptions'
 - 'servant-exceptions-server'
 - 'example'
+
+extra-deps:
+- servant-0.16.2@sha256:6c5d19d09a9dd2f2b2bf99193f944491f8374802678b79ec729e3f3ae51e216d,5867
+- servant-server-0.16.2@sha256:f6b36df7c4f1688ff9d48d272e6cfc5f001b3221d2a732e73faf44e8b9e1ea04,5798
